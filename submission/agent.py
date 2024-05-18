@@ -33,14 +33,14 @@ ROTATIONS = [
 ]
 
 MOVES = [
-    translation + rotation + [Action.HARD_DROP]
-    for translation in TRANSLATIONS
-    for rotation in ROTATIONS
-] + [
-    rotation + translation + [Action.HARD_DROP]
-    for translation in TRANSLATIONS
-    for rotation in ROTATIONS
-]
+            translation + rotation + [Action.HARD_DROP]
+            for translation in TRANSLATIONS
+            for rotation in ROTATIONS
+        ] + [
+            rotation + translation + [Action.HARD_DROP]
+            for translation in TRANSLATIONS
+            for rotation in ROTATIONS
+        ]
 
 
 def calculate_heights(board):
@@ -112,7 +112,7 @@ class Agent(BaseAgent):
 
             feature_vector = np.array(
                 [
-                    -len(clearable_lines),
+                    -len(clearable_lines) + 4,
                     sum(column_heights),
                     hole_count,
                     total_blocks,
@@ -135,7 +135,10 @@ SelectedAgent = Agent
 
 if __name__ == "__main__":
     # w = [0.76191086, 0.26673502, 0.26709552, 0.97607697, 0.06224954]
-    w = [2.31305573, 6.29873695, 6.99020742, 2.69680968, 2.44185946]  # GA on 3 seeds [87, 42, 101]
+    # w = [2.31305573, 6.29873695, 6.99020742, 2.69680968, 2.44185946]  # GA on 3 seeds [87, 42, 101]
+    # w = [2.61429848, 4.1819328, 4.32769645, 8.01483004, 1.43792327]  # GA on 5 seeds [73, 42, 101, 69, 987]
+    # w = [9.95, 8.97483004, 5.4419328, 7.85534227, 2.50481351]  # GA on 5 seeds [73, 42, 101, 69, 987]
+    w = [7.9735285, 0.21784989, 1.52792327, 1.2061363, 0.34622345]
     agent = SelectedAgent(w)
 
     main(agent)
